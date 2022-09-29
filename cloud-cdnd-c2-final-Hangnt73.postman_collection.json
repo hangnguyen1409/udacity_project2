@@ -20,7 +20,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ5LnR3SDNIQTc5d1RFRS93bi9OWVdPOUZwZU1EbDkwVElHQnVVdGs2MFd3TWoxTDlhTUZRSyIsImlhdCI6MTY2NDM1NzcyN30.ENl49AqQXQbjhhWgQaVDNUg2R9XZtYWiU_djCrnQVJA",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkdXNQVi5yOUNRcXA5cDVWbDJOanZ5ZTMyenlTYk1xOS9uSG1YTEthbER3c1MwQ0JqOXpxUEciLCJpYXQiOjE2NjQ0NDQ4NTR9.8wDplFnLp024Jc91INJ4LZD0_J5OCNKPSuI3jk3ReSk",
 									"type": "string"
 								}
 							]
@@ -76,7 +76,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"email\":\"abc@gmail.com\",\r\n\t\"password\":\"abc\"\r\n}",
+							"raw": "{\r\n\t\"email\":\"abcd@gmail.com\",\r\n\t\"password\":\"abcd\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,7 +103,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n\t\"email\":\"abc@gmail.com\",\r\n\t\"password\":\"abc\"\r\n\r\n}",
+							"raw": "{\r\n    \r\n\t\"email\":\"abcd@gmail.com\",\r\n\t\"password\":\"abcd\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,6 +115,108 @@
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EB Testing",
+			"item": [
+				{
+					"name": "Filter Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiY2RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOTZ3aE1HVC5CUUZ5LzdXQ2RiTm1JZTg1MjBGcnZJdkxHa0lHOFBpeS8yOUYzWTExWEdaTE8iLCJjcmVhdGVkQXQiOiIyMDIyLTA5LTI5VDE3OjU0OjQ0LjU4MloiLCJ1cGRhdGVkQXQiOiIyMDIyLTA5LTI5VDE3OjU0OjQ0LjU4MloiLCJpYXQiOjE2NjQ0NzQxMzd9.7HmhgfCSKvOxd1dXR3hAAMKNJ-xZDLzNrXFqWTQD5Fs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://udacity-project2-filterimage-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.helpex.vn/upload/2019/06/21/55ee43508b75f32e34157158-115418120_50x50.jpg",
+							"protocol": "http",
+							"host": [
+								"udacity-project2-filterimage-dev",
+								"us-east-1",
+								"elasticbeanstalk",
+								"com"
+							],
+							"path": [
+								"filteredimage"
+							],
+							"query": [
+								{
+									"key": "image_url",
+									"value": "https://cdn.helpex.vn/upload/2019/06/21/55ee43508b75f32e34157158-115418120_50x50.jpg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\":\"abcd@gmail.com\",\r\n\t\"password\":\"abcd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://udacity-project2-filterimage-dev.us-east-1.elasticbeanstalk.com/register",
+							"protocol": "http",
+							"host": [
+								"udacity-project2-filterimage-dev",
+								"us-east-1",
+								"elasticbeanstalk",
+								"com"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n\t\"email\":\"abcd@gmail.com\",\r\n\t\"password\":\"abcd\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://udacity-project2-filterimage-dev.us-east-1.elasticbeanstalk.com/login",
+							"protocol": "http",
+							"host": [
+								"udacity-project2-filterimage-dev",
+								"us-east-1",
+								"elasticbeanstalk",
+								"com"
 							],
 							"path": [
 								"login"
