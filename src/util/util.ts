@@ -4,61 +4,61 @@ import Jimp = require("jimp");
 import * as jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { NextFunction } from "connect";
-// import { User } from "../models/User";
-// import { config } from "../config/config";
+import { User } from "../models/User";
+import { config } from "../config/config";
 
-// const saltRounds = 10;
-// export async function generatePassword(
-//   plainTextPassword: string
-// ): Promise<string> {
-//   const salt = await bcrypt.genSalt(saltRounds);
-//   const hash = await bcrypt.hash(plainTextPassword, salt);
-//   return hash;
-// }
+const saltRounds = 10;
+export async function generatePassword(
+  plainTextPassword: string
+): Promise<string> {
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hash = await bcrypt.hash(plainTextPassword, salt);
+  return hash;
+}
 
-// export async function comparePasswords(
-//   plainTextPassword: string,
-//   hash: string
-// ): Promise<boolean> {
-//   const compare = await bcrypt.compare(plainTextPassword, hash);
-//   return compare;
-// }
+export async function comparePasswords(
+  plainTextPassword: string,
+  hash: string
+): Promise<boolean> {
+  const compare = await bcrypt.compare(plainTextPassword, hash);
+  return compare;
+}
 
-// export function generateJWT(user: User): string {
-//   return jwt.sign(user.toJSON(), config.jwt.secret);
-// }
+export function generateJWT(user: User): string {
+  return jwt.sign(user.toJSON(), config.jwt.secret);
+}
 
-// //Authenticate function:
-// export function authenticateRequest(
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) {
-//   //check request header
-//   if (!req.headers || !req.headers.authorization) {
-//     return res.status(401).send({ message: "Unauthenticated request" });
-//   }
+//Authenticate function:
+export function authenticateRequest(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  //check request header
+  if (!req.headers || !req.headers.authorization) {
+    return res.status(401).send({ message: "Unauthenticated request" });
+  }
 
-//   //Example: Bearer abcxyz
-//   const token: string[] = req.headers.authorization.split(" ");
+  //Example: Bearer abcxyz
+  const token: string[] = req.headers.authorization.split(" ");
 
-//   if (token.length != 2) {
-//     return res.status(401).send({ message: "Invalid token" });
-//   } else {
-//     const token_value: string = token[1];
-//     //verify token value with jwt secret
-//     return jwt.verify(token_value, config.jwt.secret, (err, decoded) => {
-//       if (err) {
-//         return res.status(500).send({
-//           auth: false,
-//           message:
-//             "Token is given not match with token was signed & " + err.message,
-//         });
-//       }
-//       return next();
-//     });
-//   }
-// }
+  if (token.length != 2) {
+    return res.status(401).send({ message: "Invalid token" });
+  } else {
+    const token_value: string = token[1];
+    //verify token value with jwt secret
+    return jwt.verify(token_value, config.jwt.secret, (err, decoded) => {
+      if (err) {
+        return res.status(500).send({
+          auth: false,
+          message:
+            "Token is given not match with token was signed & " + err.message,
+        });
+      }
+      return next();
+    });
+  }
+}
 
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally

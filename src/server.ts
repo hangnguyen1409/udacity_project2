@@ -1,20 +1,20 @@
-// import { User } from "./models/User";
+import { User } from "./models/User";
 import { Request, Response } from "express";
-// import { createDB } from "./sequelize";
+import { createDB } from "./sequelize";
 import express from "express";
 import bodyParser from "body-parser";
 import {
   filterImageFromURL,
   deleteLocalFiles,
-  // authenticateRequest,
-  // comparePasswords,
-  // generateJWT,
-  // generatePassword,
+  authenticateRequest,
+  comparePasswords,
+  generateJWT,
+  generatePassword,
 } from "./util/util";
 import * as EmailValidator from "email-validator";
 
 (async () => {
-  // await createDB();
+  await createDB();
 
   const app = express();
 
@@ -22,89 +22,89 @@ import * as EmailValidator from "email-validator";
 
   app.use(bodyParser.json());
 
-  // //register user
-  // app.post("/register", async (req: Request, res: Response) => {
-  //   const email = req.body.email;
-  //   const plainTextPassword = req.body.password;
-  //   // check email is valid
-  //   if (!email || !EmailValidator.validate(email)) {
-  //     return res
-  //       .status(400)
-  //       .send({ auth: false, message: "Email is required or malformed" });
-  //   }
+  //register user
+  app.post("/register", async (req: Request, res: Response) => {
+    const email = req.body.email;
+    const plainTextPassword = req.body.password;
+    // check email is valid
+    if (!email || !EmailValidator.validate(email)) {
+      return res
+        .status(400)
+        .send({ auth: false, message: "Email is required or malformed" });
+    }
 
-  //   // check email password valid
-  //   if (!plainTextPassword) {
-  //     return res
-  //       .status(400)
-  //       .send({ auth: false, message: "Password is required" });
-  //   }
+    // check email password valid
+    if (!plainTextPassword) {
+      return res
+        .status(400)
+        .send({ auth: false, message: "Password is required" });
+    }
 
-  //   // find the user
-  //   const user = await User.findByPk(email);
-  //   // check that user doesnt exists
-  //   if (user) {
-  //     return res
-  //       .status(422)
-  //       .send({ auth: false, message: "User may already exist" });
-  //   }
+    // find the user
+    const user = await User.findByPk(email);
+    // check that user doesnt exists
+    if (user) {
+      return res
+        .status(422)
+        .send({ auth: false, message: "User may already exist" });
+    }
 
-  //   const password_hash = await generatePassword(plainTextPassword);
+    const password_hash = await generatePassword(plainTextPassword);
 
-  //   const newUser = await new User({
-  //     email: email,
-  //     password: password_hash,
-  //   });
+    const newUser = await new User({
+      email: email,
+      password: password_hash,
+    });
 
-  //   let savedUser;
-  //   try {
-  //     savedUser = await newUser.save();
-  //   } catch (e) {
-  //     throw e;
-  //   }
+    let savedUser;
+    try {
+      savedUser = await newUser.save();
+    } catch (e) {
+      throw e;
+    }
 
-  //   // Generate JWT
-  //   const jwt = generateJWT(savedUser);
+    // Generate JWT
+    const jwt = generateJWT(savedUser);
 
-  //   res.status(201).send({ token: jwt, user: savedUser.short() });
-  // });
+    res.status(201).send({ token: jwt, user: savedUser.short() });
+  });
 
-  // //user login
-  // app.post("/login", async (req: Request, res: Response) => {
-  //   const email = req.body.email;
-  //   const password = req.body.password;
-  //   // check email is valid
-  //   if (!email || !EmailValidator.validate(email)) {
-  //     return res
-  //       .status(400)
-  //       .send({ auth: false, message: "Email is required or malformed" });
-  //   }
+  //user login
+  app.post("/login", async (req: Request, res: Response) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    // check email is valid
+    if (!email || !EmailValidator.validate(email)) {
+      return res
+        .status(400)
+        .send({ auth: false, message: "Email is required or malformed" });
+    }
 
-  //   // check email password valid
-  //   if (!password) {
-  //     return res
-  //       .status(400)
-  //       .send({ auth: false, message: "Password is required" });
-  //   }
+    // check email password valid
+    if (!password) {
+      return res
+        .status(400)
+        .send({ auth: false, message: "Password is required" });
+    }
 
-  //   const user = await User.findByPk(email);
-  //   // check that user exists
-  //   if (!user) {
-  //     return res.status(401).send({ auth: false, message: "Unauthorized" });
-  //   }
+    const user = await User.findByPk(email);
+    // check that user exists
+    if (!user) {
+      return res.status(401).send({ auth: false, message: "Unauthorized" });
+    }
 
-  //   // check that the password matches
-  //   const authValid = await comparePasswords(password, user.password);
+    // check that the password matches
+    const authValid = await comparePasswords(password, user.password);
 
-  //   if (!authValid) {
-  //     return res.status(401).send({ auth: false, message: "Unauthorized" });
-  //   }
+    if (!authValid) {
+      return res.status(401).send({ auth: false, message: "Unauthorized" });
+    }
 
-  //   // Generate JWT
-  //   const jwt = generateJWT(user);
+    // Generate JWT
+    const jwt = generateJWT(user);
 
-  //   res.status(200).send({ auth: true, token: jwt, user: user.short() });
-  // });
+    res.status(200).send({ auth: true, token: jwt, user: user.short() });
+  });
 
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
@@ -120,31 +120,31 @@ import * as EmailValidator from "email-validator";
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
 
   /**************************************************************************** */
-  // app.get(
-  //   "/filteredimage",
-  //   authenticateRequest,
-  //   async (req: Request, res: Response) => {
-  //     let { image_url } = req.query;
+  app.get(
+    "/filteredimage",
+    authenticateRequest,
+    async (req: Request, res: Response) => {
+      let { image_url } = req.query;
 
-  //     //validate the image_url query
-  //     if (!image_url) {
-  //       return res.status(400).send({ message: "Invalid image url" });
-  //     } else {
-  //       try {
-  //         const url_filtered = await filterImageFromURL(image_url.toString());
-  //         return res.status(200).sendFile(url_filtered, (error) => {
-  //           if (!error) {
-  //             deleteLocalFiles([url_filtered]);
-  //           }
-  //         });
-  //       } catch (err) {
-  //         return res.status(422).send({
-  //           message: "Sorry the server has error while processing" + err,
-  //         });
-  //       }
-  //     }
-  //   }
-  // ); //! END @TODO1
+      //validate the image_url query
+      if (!image_url) {
+        return res.status(400).send({ message: "Invalid image url" });
+      } else {
+        try {
+          const url_filtered = await filterImageFromURL(image_url.toString());
+          return res.status(200).sendFile(url_filtered, (error) => {
+            if (!error) {
+              deleteLocalFiles([url_filtered]);
+            }
+          });
+        } catch (err) {
+          return res.status(422).send({
+            message: "Sorry the server has error while processing" + err,
+          });
+        }
+      }
+    }
+  ); //! END @TODO1
 
   // Root Endpoint
   // Displays a simple message to the user
