@@ -13,7 +13,7 @@ The project is split into three parts:
 
 ### My Elastic Beanstalk Endpoints:
 
-http://udacity-project2-filterimage-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.helpex.vn/upload/2019/06/21/55ee43508b75f32e34157158-115418120_50x50.jpg
+http://udacity-project2-dev2.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://cdn.helpex.vn/upload/2019/06/21/55ee43508b75f32e34157158-115418120_50x50.jpg
 
 ### Note: I added more endpoints for authentication so that please running my postman collection for signing in & adding your jwt into filter image endpoint for filtering. Beside that, you can also use my authenticated jwt which was added by me.
 
