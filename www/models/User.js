@@ -12,6 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 let User = class User extends sequelize_typescript_1.Model {
+    constructor() {
+        super(...arguments);
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
     short() {
         return { email: this.email };
     }
@@ -26,6 +31,16 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    sequelize_typescript_1.CreatedAt,
+    __metadata("design:type", Date)
+], User.prototype, "createdAt", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    sequelize_typescript_1.UpdatedAt,
+    __metadata("design:type", Date)
+], User.prototype, "updatedAt", void 0);
 User = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "user",

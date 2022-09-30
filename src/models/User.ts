@@ -5,6 +5,8 @@ import {
   IsEmail,
   Model,
   PrimaryKey,
+  CreatedAt,
+  UpdatedAt,
 } from "sequelize-typescript";
 
 @Table({
@@ -18,6 +20,14 @@ export class User extends Model {
 
   @Column({ type: DataType.STRING })
   public password!: string;
+
+  @Column
+  @CreatedAt
+  public createdAt: Date = new Date();
+
+  @Column
+  @UpdatedAt
+  public updatedAt: Date = new Date();
 
   short() {
     return { email: this.email };
